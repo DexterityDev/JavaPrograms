@@ -1,0 +1,77 @@
+import java.awt.event.*;
+import java.awt.Robot;
+import java.awt.AWTException;
+import java.util.*;
+
+public class AutoSave
+{
+
+public static void main(String[] args)
+{
+	Scanner console = new Scanner(System.in);
+	String keyStroke = "";
+	int time;
+
+	System.out.print("This program will automatically save games over specified intervals of time.");
+	if(keyStroke.toUpperCase() != "Y")
+	{
+		System.out.print("\nPlease change the auto save key in game to F5." + "\n(Type Y and press enter when finished): ");
+		keyStroke = console.nextLine();
+	}
+
+
+	System.out.print("\nPlease enter the time interval you would like to wait between each auto save." + "\n(In seconds)");
+	System.out.print("\n\nOne minute - 60 Seconds");
+	System.out.print("\nTwo minutes - 120 Seconds");
+	System.out.print("\nThree minutes - 180 Seconds");
+	System.out.print("\nFour minutes - 240 Seconds");
+	System.out.print("\nFive minutes - 300 Seconds");
+	System.out.print("\nTen minutes - 600 Seconds");
+	System.out.print("\n30 minutes - 1800 Seconds");
+	System.out.print("\nOne hour - 3600 Seconds");
+	System.out.print("\nSeconds: ");
+		time = console.nextInt();
+
+	while(time <= 0)
+	{
+		System.out.print("\nPlease enter a valid time greater than zero: ");
+			time = console.nextInt();
+	}
+
+	System.out.print("\nConfiguring....");
+
+	autoSave(time);
+}
+
+public static void autoSave(int time)
+{
+	System.out.print("\n\nNumber of saves: ");
+	try
+	{
+		Robot autoSave = new Robot();
+
+		int temp = 0;
+		while(1 == 1)
+		{
+		autoSave.keyPress(KeyEvent.VK_F5);
+
+		autoSave.keyRelease(KeyEvent.VK_F5);
+		temp++;
+		System.out.print(temp + "...");
+		try
+			{
+				Thread.sleep(time * 1000);
+			}
+			catch(InterruptedException ex)
+			{
+				Thread.currentThread().interrupt();
+			}
+		}
+	}
+	catch(AWTException e)
+	{
+		e.printStackTrace();
+	}
+
+}
+}
